@@ -1,0 +1,28 @@
+//Outputs all prime factors of an integer
+#include<stdio.h>
+int m()
+{
+	int x;
+	int i=2;
+	scanf("%d",&x);
+	while(i<=x)
+	{
+		if(x%i==0 && i!=x)
+		{
+			printf("%d ",i);
+			x=x/i;
+		}
+		else if(x%i==0 && i==x)
+		{
+			printf("%d ",i);
+			x=x/i;
+		}
+		else
+			i++;
+	}
+}
+int main()
+{
+	m();
+	return 0;
+}
