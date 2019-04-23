@@ -1,0 +1,22 @@
+//1-10000 perfect number
+#include<stdio.h>
+a()
+{
+	int i,j,n=10000,r;
+	for(i=1; i<n; i++)
+	{
+		r=0;
+		for(j=1; j<i; j++)
+		{
+			if(0==i%j)
+				r+=j;
+		}
+		if(r==i)
+			printf("%d ",r);
+	}
+}
+int main()
+{
+	a();
+	return 0;
+}
