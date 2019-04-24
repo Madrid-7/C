@@ -1,0 +1,3 @@
+﻿  test_4_24.c
+c:\users\如雨随行\desktop\work\c\vs_test\test_4_24\test_4_24\test_4_24.c(18): warning C4715: “binary_search”: 不是所有的控件路径都返回值
+  test_4_24.vcxproj -> C:\Users\如雨随行\Desktop\work\C\vs_test\test_4_24\Debug\test_4_24.exe
