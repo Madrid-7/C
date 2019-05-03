@@ -1,0 +1,7 @@
+﻿  work.c
+c:\users\如雨随行\desktop\work\c\vs_test\work_4_30\work_4_30\work.c(22): warning C4013: “gets”未定义；假设外部返回 int
+c:\users\如雨随行\desktop\work\c\vs_test\work_4_30\work_4_30\work.c(63): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+c:\users\如雨随行\desktop\work\c\vs_test\work_4_30\work_4_30\work.c(64): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+c:\users\如雨随行\desktop\work\c\vs_test\work_4_30\work_4_30\work.c(65): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+c:\users\如雨随行\desktop\work\c\vs_test\work_4_30\work_4_30\work.c(66): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  work_4_30.vcxproj -> C:\Users\如雨随行\Desktop\work\C\vs_test\work_4_30\Debug\work_4_30.exe
