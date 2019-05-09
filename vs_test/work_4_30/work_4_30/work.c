@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS 1
-#define N 30
+#define N 3
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
