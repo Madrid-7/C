@@ -14,10 +14,22 @@ void game()
 {
 	char mine[ROWS][COLS] = { 0 };
 	char show[ROWS][COLS] = { 0 };
+	//初始化
+	InitBoard(mine, ROWS, COLS, '0');       
+	InitBoard(show, ROWS, COLS, '*');
+	//打印雷区
+	PrintBoard(show, ROW, COL);
+	//埋雷
+	SetMine(mine, ROW, COL);
+	PrintBoard(mine, ROW, COL);
+	//排雷
+	FindMine(mine, show, ROW, COL);
+
 }
 
 void test()
 {
+	srand((unsigned)time(NULL));
 	int input = 0;
 	do
 	{
