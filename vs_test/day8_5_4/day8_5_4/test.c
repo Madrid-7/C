@@ -12,16 +12,37 @@ void menu()
 void game()
 {
 	char board[ROW][LINE] = { 0 };
+	char ret = 0;
 	InitBoard(board, ROW, LINE);
 	ChessBoard(ROW, LINE, board);      //打印棋盘
 	while (1)
 	{
 		PlayerMove(ROW, LINE, board);           //玩家走
 		ChessBoard(ROW, LINE, board);               
-
+		ret = CheakWin(ROW, LINE, board);
+		if (ret != 'C')
+		{
+			break;
+		}
 		ComputerMove(ROW, LINE, board);                 //电脑走
 		ChessBoard(ROW, LINE, board);
-
+		ret = CheakWin(ROW, LINE, board);
+		if (ret != 'C')
+		{
+			break;
+		}
+	}
+	if ('Q' == ret)
+	{
+		printf("平局\n");
+	}
+	else if ('*' == ret)
+	{
+		printf("玩家赢\n");
+	}
+	else if ('#' == ret)
+	{
+		printf("电脑赢\n");
 	}
 }
 
