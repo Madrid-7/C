@@ -49,6 +49,27 @@ void SetMine(char board[ROWS][COLS], int row, int col)
 	}
 }
 
+void ChangeBoard(char mine[ROWS][COLS], char show[ROWS][COLS] ,int x, int y)
+{
+	int sum = 0;
+	sum += mine[x - 1][y - 1] - '0';
+	sum += mine[x - 1][y] - '0';
+	sum += mine[x - 1][y + 1] - '0';
+	sum += mine[x][y + 1] - '0';
+	sum += mine[x][y - 1] - '0';
+	sum += mine[x + 1][y - 1] - '0';
+	sum += mine[x + 1][y] - '0';
+	sum += mine[x + 1][y + 1] - '0';
+	if (sum == 0)
+	{
+		show[x][y] = ' ';
+	}
+	else
+	{
+		show[x][y] = sum + '0';
+	}
+}
+
 void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col)
 {
 	int count = 0;
@@ -60,32 +81,34 @@ void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col)
 		scanf("%d%d", &x, &y);
 		if (mine[x][y] != '1')
 		{
-			int sum = 0;
-			sum += mine[x - 1][y - 1] - '0';
-			sum += mine[x - 1][y] - '0';
-			sum += mine[x - 1][y + 1] - '0';
-			sum += mine[x][y + 1] - '0';
-			sum += mine[x][y - 1] - '0';
-			sum += mine[x + 1][y - 1] - '0';
-			sum += mine[x + 1][y] - '0';
-			sum += mine[x + 1][y + 1] - '0';
-			if (sum == 0)
-			{
-				show[x][y] = ' ';
-			}
-			else
-			{
-				show[x][y] = sum + '0';
-			}
+			ChangeBoard(mine, show, x ,y);
 			PrintBoard(show, ROW, COL);
 			count++;
-
 		}
 		else
 		{
-			printf("”Œœ∑ ß∞‹\n");
-			PrintBoard(mine, ROW, COL);
-			break;
+			if (count == 0)
+			{
+				while (count == 0)
+				{
+					int x1 = rand() % row + 1;
+					int y1 = rand() % col + 1;
+					if (mine[x1][y1] == '0' && x1 != x && y1 != y)
+					{
+						mine[x][y] = '0';
+						mine[x1][y1] = '1';
+						ChangeBoard(mine, show, x, y);
+						PrintBoard(show, ROW, COL);
+						count++;
+					}
+				}
+			}
+			else
+			{
+				printf("”Œœ∑ ß∞‹\n");
+				PrintBoard(mine, ROW, COL);
+				break;
+			}
 		}
 	}
 	if (count == row * col - EASY_MINE)

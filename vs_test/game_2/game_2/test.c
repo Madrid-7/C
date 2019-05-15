@@ -24,7 +24,7 @@ void game()
 	PrintBoard(mine, ROW, COL);
 	//ÅÅÀ×
 	FindMine(mine, show, ROW, COL);
-
+	PrintBoard(mine, ROW, COL);
 }
 
 void test()
