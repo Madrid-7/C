@@ -12,7 +12,9 @@ void menu()
 
 void game()
 {
+	//雷区数组
 	char mine[ROWS][COLS] = { 0 };
+	//玩家界面
 	char show[ROWS][COLS] = { 0 };
 	//初始化
 	InitBoard(mine, ROWS, COLS, '0');       
@@ -21,7 +23,6 @@ void game()
 	PrintBoard(show, ROW, COL);
 	//埋雷
 	SetMine(mine, ROW, COL);
-	PrintBoard(mine, ROW, COL);
 	//排雷
 	FindMine(mine, show, ROW, COL);
 	PrintBoard(mine, ROW, COL);
@@ -50,9 +51,7 @@ void test()
 
 int main()
 {
-
 	test();
-
 	system("pause");
 	return 0;
 }

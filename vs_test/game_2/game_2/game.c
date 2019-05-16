@@ -1,7 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include"game.h"
 
-void InitBoard(char board[ROWS][COLS], int row, int col, char str)
+//初始化棋盘
+void InitBoard(char board[ROWS][COLS], int row, int col, char str)    
 {
 	int i = 0;
 	int j = 0;
@@ -13,8 +14,8 @@ void InitBoard(char board[ROWS][COLS], int row, int col, char str)
 		}
 	}
 }
-
-void PrintBoard(char board[ROWS][COLS], int row, int col)
+//打印棋盘
+void PrintBoard(char board[ROWS][COLS], int row, int col)  
 {
 	int i = 0;
 	int j = 0;
@@ -33,7 +34,7 @@ void PrintBoard(char board[ROWS][COLS], int row, int col)
 		printf("\n");
 	}
 }
-
+//埋雷
 void SetMine(char board[ROWS][COLS], int row, int col)
 {
 	int count = 0;
@@ -48,8 +49,8 @@ void SetMine(char board[ROWS][COLS], int row, int col)
 		}
 	}
 }
-
-void ChangeBoard(char mine[ROWS][COLS], char show[ROWS][COLS] ,int x, int y)
+//返回周围雷的个数
+int ChangeBoard(char mine[ROWS][COLS], char show[ROWS][COLS] ,int x, int y)
 {
 	int sum = 0;
 	sum += mine[x - 1][y - 1] - '0';
@@ -68,8 +69,47 @@ void ChangeBoard(char mine[ROWS][COLS], char show[ROWS][COLS] ,int x, int y)
 	{
 		show[x][y] = sum + '0';
 	}
+	return sum;
 }
-
+//实现展开函数
+void Unfold(char mine[ROWS][COLS], char show[ROWS][COLS], int x, int y, int* p_count)
+{
+	int sum = ChangeBoard(mine, show, x, y);
+	*p_count = *p_count + 1;
+	if (sum == 0 && show[x - 1][y - 1] == '*' && x - 1 > 0 && y - 1 > 0)
+	{
+		Unfold(mine, show, x - 1, y - 1, &*p_count);
+	}
+	if (sum == 0 && show[x - 1][y] == '*' && x - 1 > 0)
+	{
+		Unfold(mine, show, x - 1, y, &*p_count);
+	}
+	if (sum == 0 && show[x - 1][y + 1] == '*' && x - 1 > 0 && y + 1 <= COL)
+	{
+		Unfold(mine, show, x - 1, y + 1, &*p_count);
+	}
+	if (sum == 0 && show[x][y - 1] == '*' && y - 1 > 0)
+	{
+		Unfold(mine, show, x, y - 1, &*p_count);
+	}
+	if (sum == 0 && show[x][y + 1] == '*' && x - 1 > 0 && y + 1 <= COL)
+	{
+		Unfold(mine, show, x, y + 1, &*p_count);
+	}
+	if (sum == 0 && show[x + 1][y - 1] == '*' && x + 1 <= ROW && y - 1 > 0)
+	{
+		Unfold(mine, show, x + 1, y - 1, &*p_count);
+	}
+	if (sum == 0 && show[x + 1][y] == '*' && x + 1 <= ROW)
+	{
+		Unfold(mine, show, x + 1, y, &*p_count);
+	}
+	if (sum == 0 && show[x + 1][y + 1] == '*' && x + 1 <= ROW && y + 1 <= COL)
+	{
+		Unfold(mine, show, x + 1, y + 1, &*p_count);
+	}
+}
+//扫雷函数
 void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col)
 {
 	int count = 0;
@@ -81,12 +121,12 @@ void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col)
 		scanf("%d%d", &x, &y);
 		if (mine[x][y] != '1')
 		{
-			ChangeBoard(mine, show, x ,y);
+			Unfold(mine, show, x, y, &count);
 			PrintBoard(show, ROW, COL);
-			count++;
 		}
 		else
 		{
+			//避免第一次被炸死
 			if (count == 0)
 			{
 				while (count == 0)
@@ -97,16 +137,14 @@ void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col)
 					{
 						mine[x][y] = '0';
 						mine[x1][y1] = '1';
-						ChangeBoard(mine, show, x, y);
+						Unfold(mine, show, x, y, &count);
 						PrintBoard(show, ROW, COL);
-						count++;
 					}
 				}
 			}
 			else
 			{
 				printf("游戏失败\n");
-				PrintBoard(mine, ROW, COL);
 				break;
 			}
 		}
@@ -116,4 +154,3 @@ void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col)
 		printf("排雷成功,游戏结束\n");
 	}
 }
-
