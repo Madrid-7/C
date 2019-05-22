@@ -2,10 +2,27 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int main()
-{
-	printf("5.20\n");
-	printf("QY,没打算大学谈个男朋友?!想对你说我有点喜欢你了...\n");
-	system("pause");
-	return 0;
-}
+//1.
+//编写函数：
+//unsigned int reverse_bit(unsigned int value);
+//这个函数的返回值value的二进制位模式从左到右翻转后的值。
+//unsigned int reverse_bit(unsigned int value)
+//{
+//	int i = 0;
+//	int sum = 0;
+//	int k = 0;
+//	for (i = 0; i < 32; i++)
+//	{
+//		k = value >> i & 1;
+//		sum += k << (31 - i);
+//	}
+//	return sum;
+//}
+//int main()
+//{
+//	int n = 0;
+//	scanf("%d", &n);
+//	printf("%u\n", reverse_bit(n));
+//	system("pause");
+//	return 0;
+//}
