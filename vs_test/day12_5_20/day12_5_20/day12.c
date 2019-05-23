@@ -26,3 +26,11 @@
 //	system("pause");
 //	return 0;
 //}
+
+//2.
+//不使用（a + b） / 2这种方式，求两个数的平均值。
+int main()
+{
+	system("pause");
+	return 0;
+}

@@ -1,15 +1,16 @@
 #define _CRT_SECURE_NO_WARNINGS 1
-#include<stdio.h>
 
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-void sort(char **p)
+#define N 5
+
+void sort(char **p, int n)
 {
 	char **q, **s, *t;
-	for (q = p; q < p + 4; q++)
+	for (q = p; q < p + n - 1; q++)
 	{
-		for (s = q + 1; s < p + 5; s++)
+		for (s = q + 1; s < p + n; s++)
 		{
 			if (strcmp(*q, *s) > 0)
 			{
@@ -22,17 +23,19 @@ void sort(char **p)
 }
 int main()
 {
-	char *a[5], b[5][99], **p;
+	char *a[N];
+	char b[N][99];
+	char **p;
 	int i;
-	for (i = 0; i < 5; i++)
+	for (i = 0; i < N; i++)
 		a[i] = b[i];
-	printf("ÇëÒÀ´ÎÊäÈëÎå¸ö×Ö·û´®£º\n");
-	for (i = 0; i < 5; i++)
+	printf("ÇëÒÀ´ÎÊäÈë×Ö·û´®£º\n");
+	for (i = 0; i < N; i++)
 		scanf("%s", a[i]);
 	p = a;
-	sort(p);
+	sort(p, N);
 	printf("ÅÅÐòºóÊä³öÎª£º\n");
-	for (i = 0; i < 5; i++)
+	for (i = 0; i < N; i++)
 	{
 		printf("%s\n", a[i]);
 	}
