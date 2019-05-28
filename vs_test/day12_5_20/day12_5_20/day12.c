@@ -73,14 +73,14 @@
 //要求：
 //不能使用库函数。
 //只能开辟有限个空间（空间个数和字符串的长度无关）。
-int lenth(char* str)
+int lenth(const char* str)
 {
 	int count = 0;
-	char* p = str;
-	while (*p != '\0')
+	//const char* p = str;
+	while (*str != '\0')
 	{
 		count++;
-		p++;
+		str++;
 	}
 	return count;
 }
