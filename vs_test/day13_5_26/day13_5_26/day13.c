@@ -65,8 +65,32 @@
 //1 2 3
 //4 5 6
 //7 8 9
+void FindNum(int arr[3][3], int k, int row, int col)
+{
+	int x = 0;
+	int y = col - 1;
+	while (x < row && y >= 0)
+	{
+		if (arr[x][y] > k)
+		{
+			y--;
+		}
+		else if (arr[x][y] < k)
+		{
+			x++;
+		}
+		else
+		{
+			printf("%d,%d\n", x, y);
+			return;
+		}
+	}
+	printf("ÕÒ²»µ½.\n");
+}
 int main()
 {
+	int arr[3][3] = { 1,2,3,4,5,6,7,8,9 };
+	FindNum(arr, 7, 3, 3);
 	system("pause");
 	return 0;
 }
