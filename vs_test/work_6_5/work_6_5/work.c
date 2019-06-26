@@ -6,7 +6,7 @@ typedef struct Stu
 {
 	int ranking;
 	char name[20];
-};
+}Stu;
 int main()
 {
 
