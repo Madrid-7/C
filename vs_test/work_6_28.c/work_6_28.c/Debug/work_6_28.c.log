@@ -1,0 +1,4 @@
+﻿  others.c
+c:\users\如雨随行\desktop\work\c\vs_test\work_6_28.c\work_6_28.c\others.c(29): warning C4477: “scanf”: 格式字符串“%d”需要类型“int *”的参数，但可变参数 2 拥有了类型“double”
+c:\users\如雨随行\desktop\work\c\vs_test\work_6_28.c\work_6_28.c\others.c(34): warning C4477: “scanf”: 格式字符串“%d”需要类型“int *”的参数，但可变参数 2 拥有了类型“double”
+  work_6_28.c.vcxproj -> C:\Users\如雨随行\Desktop\work\C\vs_test\work_6_28.c\Debug\work_6_28.c.exe
