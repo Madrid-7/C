@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include"fxxk.h"
 
-void LongIn()
+void test()
 {
 	FILE* fp;
 	fp = fopen("user_master.txt", "r");
@@ -64,10 +64,6 @@ void LongIn()
 	} while (input);
 }
 
-void test()
-{
-	LongIn();
-}
 
 int main()
 {
