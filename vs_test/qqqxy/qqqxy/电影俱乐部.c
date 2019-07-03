@@ -3,6 +3,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include <conio.h>
+#include <windows.h>
 #define N 3
 
 void classify();
@@ -20,19 +21,25 @@ void appointment(struct film *p);
 void traversal(struct film * p);
 void readdata();
 void savedata(struct film *p);
-void managermenu();
+void managemenu();
 void usermenu();
 void saveuser(char name[50], char password[10]);
 void user_registration();
 void welcome();
 void member();
+void user_login();
 
-main()
+int main()
 {
-	struct film * list;
 	welcome();
 	member();
 }
+
+struct manage
+{
+	char managename[50];
+	char managepassword[50];
+};
 
 struct user
 {
@@ -60,19 +67,6 @@ struct film
 	struct film *next;
 };
 
-
-
-
-/*void userlogin()
-{
-	char
-	FILE * fp;
-	fp=fopen("用户.txt","r");
-	printf("用户名：");
-	scanf("%s",)
-}*/
-
-
 void classify()
 {
 	printf("\n");
@@ -94,7 +88,8 @@ void classify()
 
 struct film * create(void)
 {
-	FILE *fp;
+	struct film * list;
+	list = NULL;
 	int len;
 	int i;
 	struct film *head, *pnew, *tail;
@@ -113,13 +108,9 @@ struct film * create(void)
 	scanf("%d", &len);
 	printf("\n");
 
-	printf("|片名		导演		主演		上映年份		地区		票房|\n");
-	fp = fopen("影片内容.txt", "w");
-	if (fp == NULL)
-	{
-		printf("不能打开此文件，按任意键退出！");
-		exit(1);
-	}
+	printf("\t\t\t================================================================\n");
+	printf("\t                                 |片名		导演		主演		地区		上映年份		票房|\n");
+	printf("\t\t\t================================================================\n");
 
 	for (i = 0; i < len; i++)
 	{
@@ -130,48 +121,68 @@ struct film * create(void)
 			exit(1);
 		}
 
+		printf("\t\t\t                           ");
 		scanf("%s%s%s%s%d%d", pnew->name, pnew->director, pnew->actor, pnew->region, &pnew->year, &pnew->box_office);
-		fprintf(fp, "%s	%s	%s	%s	%d	%d\n", pnew->name, pnew->director, pnew->actor, pnew->region, pnew->year, pnew->box_office);
 
 		tail->next = pnew;
 		pnew->next = NULL;
 		tail = pnew;
 	}
-	fclose(fp);
+	return head->next;
 }
 
 void findname(struct film * p)
 {
 	char name[50];
-	printf("输入您所要查找的影片：");
+	readdata();
+	struct film * m;
+	m = NULL;
+	printf("\t\t\t\t输入您所要查找的影片：");
+	printf("\n\t\t\t\t\t\t   ----→  ");
 	scanf("%s", name);
-	while (p != NULL)
+
+	while (m != NULL)
 	{
-		if (strcmp(p->name, name) == 0)
+		if (strcmp(m->name, name) == 0)
 		{
-			printf("%s	%s	%s	%s	%d	%d\n", p->name, p->director, p->actor, p->region, p->year, p->box_office);
+			printf("%s	%s	%s	%s	%d	%d\n", m->name, m->director, m->actor, m->region, m->year, m->box_office);
 			printf("\n");
 			break;
 		}
 		else
-			p = p->next;
+			m = m->next;
 	}
 }
 
 void findyear(struct film * p)
 {
+	struct film * f;
+	f = (struct film *)malloc(sizeof(struct film));
+	FILE * fp;
 	int year;
-	printf("输入您所要查找的影片的年份：");
+	readdata();
+	fp = fopen("影片内容.txt", "r");
+
+	printf("\t\t输入您所要查找的影片的年份：");
 	scanf("%d", &year);
 	printf("\n");
-	printf("该年份有如下的影片：\n");
-	while (p != NULL)
+	while (1)
 	{
-		p = p->next;
-		if (p->year == year)
-			printf("%s	%s	%s	%s	%d	%d\n", p->name, p->director, p->actor, p->region, p->year, p->box_office);
+		//fscanf(fp, "%s	%s	%s	%s	%d	%d", f.name, f.director, f.actor, f.region, f.year, f.box_office);
+		if (f->year == year)
+		{
+			printf("该年份有如下的影片：\n");
+			printf("%d", f->year);
+		}
+		else
+		{
+			if (!feof(fp))
+			{
+				fscanf(fp, "		%s		%s	%s	%s	%d	%d", f->name, f->director, f->actor, f->region, &f->year, &f->box_office);
+			}
+		}
 	}
-	printf("\n");
+
 }
 
 void findregion(struct film * p)
@@ -195,7 +206,6 @@ void findregion(struct film * p)
 
 void sort(struct film *p)
 {
-	char name[50];
 	char t1[50], t2[30], t3[50], t4[50];
 	int t5, t6;
 	struct film *l, *q;
@@ -285,6 +295,7 @@ void del(struct film * p)
 	char answer;
 	char name[50];
 	struct film * prev;                   //所删除节点的前一个节点 
+	readdata();
 	printf("您想要删除哪一部影片？\n");
 	scanf("%s", name);
 	printf("\n");
@@ -402,7 +413,7 @@ void manage_app(struct meet *p)
 	scanf("%d", &n);
 	printf("输入聚会时间和地点：");
 	fm = fopen("聚会.txt", "w");
-	fprintf(fm, "%d", &n);
+	fprintf(fm, "%d", n);
 	for (m = 0; m < n; m++)
 	{
 		x = (struct meet*)malloc(sizeof(struct meet));
@@ -442,9 +453,46 @@ void traversal(struct film * p)
 
 void readdata()
 {
-	FILE *fp;
+	FILE * fp;
+	struct film * m = (struct film*)malloc(sizeof(struct film));
+
 	fp = fopen("影片内容.txt", "r");
-	if (fp == NULL)
+	printf("\t\t\t   ================================================================\n");
+	printf("\t\t\t\t   ^^^^^^^^^^^^^|好看的电影来啦|^^^^^^^^^^^^^^^^^\n");
+	printf("\t\t\t   ================================================================\n");
+	printf("\t\t片名	      导演	      主演	      地区	      上映年份	      票房\n");
+	if (fp != NULL)
+	{
+		while (fread(m, sizeof(struct film), 1, fp))
+		{
+			printf("		%s		%s		%s		%s		%d		%d\n", m->name, m->director, m->actor, m->region, m->year, m->box_office);
+		}
+	}
+}
+
+/*void readdata()
+{
+	FILE *fp;
+	struct film * m;
+	struct film * n;
+	struct film * h;
+	fp = fopen("影片内容.txt", "r");
+	h = (struct film*)malloc(sizeof(struct film));
+	h->next = NULL;
+	n = h;
+	m = (struct film*)malloc(sizeof(struct film));
+	m->next = n->next;
+	while ((fread(m, sizeof(struct film), 1, fp)) == 1)
+	{
+		n->next = m;
+		n = m;
+		m = (struct film*)malloc(sizeof(struct film));
+		m->next = n->next;
+	}
+	fclose(fp);
+	g = h;
+}
+	/*if (fp == NULL)
 	{
 		printf("不存在该文件\n");
 		exit(0);
@@ -462,13 +510,13 @@ void readdata()
 		i++;
 	}
 	fclose(fp);
-}
+}*/
 
 
 void savedata(struct film *p)
 {
 	FILE * fp;
-	struct film * h = p->next;
+	struct film * h = p;
 	if ((fp = fopen("影片内容.txt", "w")) == NULL)//以可写的方式打开
 	{
 		printf("不能打开此文件，按任意键退出\n");
@@ -483,7 +531,7 @@ void savedata(struct film *p)
 	fclose(fp);
 }
 
-void managermenu()
+void managemenu()
 {
 	struct meet * meeting;
 	struct film * list;
@@ -491,7 +539,9 @@ void managermenu()
 	meeting = NULL;
 	int b;
 	int choice;
-	printf("---------------------------------------------------------------------\n");
+	printf("\n");
+	printf("\n");
+	printf("\t\t\t---------------------------------------------------------------------\n");
 	printf("						欢迎来到管理员端ヽ(= ω = )\n");
 	printf("							1.上传影片\n");
 	printf("							2.查找影片\n");
@@ -499,12 +549,16 @@ void managermenu()
 	printf("							4.删除影片\n");
 	printf("							5.插入影片\n");
 	printf("							6.聚会预定\n");
-	printf("\t\t\t");
+	printf("\t\t\t\t\t     请选择 | 1 | 2 | 3 | 4 | \n");
+	printf("\n\t\t\t\t\t\t   ----→  ");
 	scanf("%d", &b);
 	system("cls");
 	switch (b)
 	{
-	case 1:list = create(); break;
+	case 1:
+		list = create();
+		savedata(list);
+		break;
 	case 2:classify();
 	{
 		scanf("%d", &choice);
@@ -524,12 +578,16 @@ void managermenu()
 	case 3:change(list); break;
 	case 4:del(list); break;
 	case 5:insert(list); break;
-	case 6:manage_app(meeting); break;
+		//case 6:manage_app(meeting); break;
 	}
 	printf("\t\t\t按任意键返回上一级\n");
 	getchar();
 	system("cls");
-	managermenu();
+	if (b = 0)
+	{
+		return member();
+	}
+	return managemenu();
 }
 
 void usermenu()
@@ -538,14 +596,18 @@ void usermenu()
 	list = NULL;
 	int a;
 	int choice;
-	printf("---------------------------------------------------------------------\n");
-	printf("					欢迎来到用户端ヽ(= ω = )\n");
-	printf("							1.查询影片\n");
-	printf("							2.打卡咯\n");
-	printf("							3.写影评\n");
-	printf("							4.预约聚会噢\n");
-	printf("\t\t\t");
+	printf("\n");
+	printf("\n");
+	printf("\t\t\t---------------------------------------------------------------------\n");
+	printf("					    欢迎来到用户端ヽ(= ω = )\n");
+	printf("						1.查询影片\n");
+	printf("						2.打卡咯\n");
+	printf("						3.写影评\n");
+	printf("						4.预约聚会噢\n");
+	printf("\t\t\t\t     请选择 | 1 | 2 | 3 | 4 | \n");
+	printf("\n\t\t\t\t\t   ----→  ");
 	scanf("%d", &a);
+	printf("\n");
 	system("cls");
 	switch (a)
 	{
@@ -581,55 +643,148 @@ void saveuser(char name[50], char password[10])
 	FILE * fp;
 	fp = fopen("用户.txt", "a");
 	fprintf(fp, "%s %s\n", name, password);
+	fclose(fp);
 }
 
 void user_registration()
 {
 	struct user a, b, again;
 	FILE * fp;
-	int i;
-	char reply;
-
 	fp = fopen("用户.txt", "r");
-	printf("\n\t\t\t    输入用户名：");
+	printf("\n\t\t\t       输入用户名：");
 	scanf("%s", b.username);
-	while (1)
+
+	while (!feof(fp))
 	{
 		fscanf(fp, "%s %s\n", a.username, a.userpassword);
 		if (strcmp(a.username, b.username) == 0)
 		{
-			printf("\t\t\t该用户已存在！请重新输入\n");
-			printf("\n\t\t\t    输入用户名：");
+			printf("\t\t\t    该用户已存在！请重新输入\n");
+			printf("\n\t\t\t       输入用户名：");
 			scanf("%s", b.username);
+			rewind(fp);
 		}
-		else
-			break;
 	}
-	printf("\t\t\t\t用户名可用\n");
-	printf("\t\t\t    请输入密码：");
+	printf("\t\t\t\t   用户名可用\n");
+	printf("\t\t\t       请输入密码：");
 	scanf("%s", b.userpassword);
-	printf("\t\t\t    请再次输入：");
+	printf("\t\t\t       请再次输入：");
 	scanf("%s", again.userpassword);
 	while (1)
 	{
 		if (strcmp(b.userpassword, again.userpassword) == 0)
 		{
 			saveuser(b.username, b.userpassword);
-			printf("\t\t\t  恭喜成为俱乐部的一员噢！\n");
-			printf("\t\t\t\t按任意键\n");
-			getchar();
+			printf("\t\t\t     恭喜成为俱乐部的一员噢！\n");
+			printf("\t\t\t\t   按任意键\n");
+			Sleep(3000);
 			system("cls");
-			usermenu();
+			member();
 		}
 		else
 		{
-			printf("\t\t\t两次密码不一样哈，再次输入一下\n");
-			printf("\t\t\t   again:");
+			printf("\t\t\t   两次密码不一样哈，再次输入一下\n");
+			printf("\t\t\t\t   again:");
 			scanf("%s", again.userpassword);
 		}
 	}
 	fclose(fp);
 }
+
+void manage_login()
+{
+	struct manage a, b;
+	FILE *fp;
+	fp = fopen("管理员.txt", "r");
+	fscanf(fp, "%s %s\n", a.managename, a.managepassword);
+	printf("\t\t======================================================\n");
+	printf("\t\t-----------▲	    管理员名:");
+	scanf("%s", b.managename);
+	printf("\t\t-----------▲\n");
+	printf("\t\t-----------▲	    密码:");
+	scanf("%s", b.managepassword);
+
+	while (1)
+	{
+		//fscanf(fp, "%s %s\n", a.username, a.userpassword);
+		if (strcmp(a.managename, b.managename) == 0 && strcmp(a.managepassword, b.managepassword) == 0)
+		{
+			break;
+		}
+		else
+		{
+			if (!feof(fp))
+			{
+				fscanf(fp, "%s %s\n", a.managename, a.managepassword);
+			}
+			else
+			{
+				printf("\t\t\t   账号或者密码有误  |* ′Д｀|┛\n");
+				printf("\n");
+				printf("\t\t-----------▲	    管理员名:");
+				scanf("%s", b.managename);
+				printf("\t\t-----------▲\n");
+				printf("\t\t-----------▲	    密码:");
+				scanf("%s", b.managepassword);
+				rewind(fp);
+			}
+		}
+	}
+	printf("\t\t-----------▲\n");
+	printf("\t\t-----------▲    登录成功哦！(￣▽￣)~*\n");
+	printf("\t\t======================================================\n");
+	Sleep(6000);
+	system("cls");
+	return managemenu();
+}
+
+void user_login()
+{
+	struct user a, b;
+	FILE *fp;
+	fp = fopen("用户.txt", "r");
+	fscanf(fp, "%s %s\n", a.username, a.userpassword);
+	printf("\t\t======================================================\n");
+	printf("\t\t-----------▲	    用户名:");
+	scanf("%s", b.username);
+	printf("\t\t-----------▲\n");
+	printf("\t\t-----------▲	    密码:");
+	scanf("%s", b.userpassword);
+	while (1)
+	{
+		//fscanf(fp, "%s %s\n", a.username, a.userpassword);
+		if (strcmp(a.username, b.username) == 0 && strcmp(a.userpassword, b.userpassword) == 0)
+		{
+			break;
+		}
+		else
+		{
+			if (!feof(fp))
+			{
+				fscanf(fp, "%s %s\n", a.username, a.userpassword);
+			}
+			else
+			{
+				printf("\t\t\t   账号或密码有误  |* ′Д｀|┛\n");
+				printf("\n");
+				printf("\n");
+				printf("\t\t-----------▲	    用户名:");
+				scanf("%s", b.username);
+				printf("\t\t-----------▲\n");
+				printf("\t\t-----------▲	    密码:");
+				scanf("%s", b.userpassword);
+				rewind(fp);
+			}
+		}
+	}
+	printf("\t\t-----------▲\n");
+	printf("\t\t-----------▲    登录成功哦！(￣▽￣)~*\n");
+	printf("\t\t======================================================\n");
+	Sleep(6000);
+	system("cls");
+	return usermenu();
+}
+
 void welcome()
 {
 	printf("		*****************************************************\n");
@@ -652,27 +807,26 @@ void member()
 	printf("\n");
 	printf("\n");
 	printf("\n");
-	printf("		===============================================");
+	printf("		======================================================");
 	printf("\n");
 	printf("\n");
 	printf("\n");
-	printf("				1.会员注册\n");
-	printf("				2.会员登陆\n");
-	printf("				3.管理员登陆\n");
-	printf("				4.退出\n");
+	printf("				      1.会员注册\n");
+	printf("				      2.会员登陆\n");
+	printf("				      3.管理员登陆\n");
+	printf("				      4.退出\n");
 	printf("\n");
 	printf("\n");
-	printf("		===============================================");
+	printf("		======================================================");
 	printf("\n");
-	printf("\t\t\t   请选择 | 1 | 2 | 3 | 4 | \n");
-	printf("\n\t\t\t\t----→  ");
+	printf("\t\t\t      请选择 | 1 | 2 | 3 | 4 | \n");
+	printf("\n\t\t\t\t   ----→  ");
 	scanf("%d", &c);
+	printf("\n");
 	switch (c)
 	{
 	case 1:user_registration(); break;
-		//case 2 :user_login();break;
-		//case 3 :manager_login();break;
+	case 2:user_login(); break;
+	case 3:manage_login(); break;
 	}
 }
-
-

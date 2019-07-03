@@ -1,10 +1,6 @@
 ﻿  电影俱乐部.c
-c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(32): warning C4101: “list”: 未引用的局部变量
-c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(198): warning C4101: “name”: 未引用的局部变量
-c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(405): warning C4477: “fprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int *”
-c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(591): warning C4101: “reply”: 未引用的局部变量
-c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(590): warning C4101: “i”: 未引用的局部变量
-c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(141): warning C4715: “create”: 不是所有的控件路径都返回值
-c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(533): warning C4717: “managermenu”: 如递归所有控件路径，函数将导致运行时堆栈溢出
-c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(577): warning C4717: “usermenu”: 如递归所有控件路径，函数将导致运行时堆栈溢出
+c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(590): warning C4098: “managemenu”:“void”函数返回值
+c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(738): warning C4098: “manage_login”:“void”函数返回值
+c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(785): warning C4098: “user_login”:“void”函数返回值
+c:\users\如雨随行\desktop\work\c\vs_test\qqqxy\qqqxy\电影俱乐部.c(639): warning C4717: “usermenu”: 如递归所有控件路径，函数将导致运行时堆栈溢出
   qqqxy.vcxproj -> C:\Users\如雨随行\Desktop\work\C\vs_test\qqqxy\Debug\qqqxy.exe

@@ -27,9 +27,6 @@
     <ClCompile Include="fuction.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="linking_list.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fxxk.h">
