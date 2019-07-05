@@ -1,10 +1,11 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include"fxxk.h"
 
-char* encode(char str[], int n) 
+char* encode(char str[]) 
 {
 	char c;
-	size_t i;  
+	size_t i;
+	int n = 3;
 	for (i = 0; i < strlen(str); ++i) 
 	{        
 		c=str[i];       
@@ -37,10 +38,11 @@ char* encode(char str[], int n)
 	return str;
 }
 
-char* decode(char str[], int n)
+char* decode(char str[])
 {
 	char c;
 	size_t i;
+	int n = 3;
 	for (i = 0; i < strlen(str); ++i)
 	{
 		c = str[i];

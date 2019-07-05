@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<conio.h>
 
 #define ROW 7
 #define COL 7
@@ -14,8 +15,8 @@ typedef struct user                 //用户信息
 	struct user* next;
 }user;
 
-char* encode(char str[], int n);
-char* decode(char str[], int n);
+char* encode(char str[]);
+char* decode(char str[]);
 
 void menu();
 void cls();                       //清屏

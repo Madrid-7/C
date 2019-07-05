@@ -64,7 +64,6 @@ void test()
 	} while (input);
 }
 
-
 int main()
 {
 	test();

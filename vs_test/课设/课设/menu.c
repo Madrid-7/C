@@ -41,13 +41,37 @@ int CheakUser(int input)
 		}
 		else
 		{
+			int i = 0;
 			char name[50] = { 0 };
 			char password[20] = { 0 };
 			rewind(fp);
 			printf("输入姓名：");
 			scanf("%s", name);
 			printf("输入密码：");
-			scanf("%s", password);
+			do
+			{
+				password[i] = _getch();
+				if (password[i] == '\r')
+					break;
+				if (password[i] == '\b')
+				{
+					if (i == 0)
+					{
+						printf("\a");
+						continue;
+					}
+					i = i - 1;
+					printf("\b");
+				}
+				else
+				{
+					i = i + 1;
+					printf("*");
+				}
+			} while (password[i] != '\n' && i < 20);
+			password[i] = '\0';
+			printf("\n");
+			//scanf("%s", password);
 			if (saleman == NULL)
 			{
 				printf("err_malloc\n");
@@ -77,13 +101,37 @@ int CheakUser(int input)
 		}
 		else
 		{
+			int i = 0;
 			char name[50] = { 0 };
 			char password[20] = { 0 };
 			rewind(fp);
 			printf("输入姓名：");
 			scanf("%s", name);
 			printf("输入密码：");
-			scanf("%s", password);
+			do
+			{
+				password[i] = _getch();
+				if (password[i] == '\r')
+					break;
+				if (password[i] == '\b')
+				{
+					if (i == 0)
+					{
+						printf("\a");
+						continue;
+					}
+					i = i - 1;
+					printf("\b");
+				}
+				else
+				{
+					i = i + 1;
+					printf("*");
+				}
+			} while (password[i] != '\n' && i < 20);
+			password[i] = '\0';
+			printf("\n");
+			//scanf("%s", password);
 			if (manager == NULL)
 			{
 				printf("err_malloc\n");
@@ -105,13 +153,37 @@ int CheakUser(int input)
 		break;
 	case 9:
 		fp = fopen("user_master.txt", "r");
+		int i = 0;
 		char name[50] = { 0 };
 		char password[20] = { 0 };
 		user* master = (user*)malloc(sizeof(user));
 		printf("输入姓名：");
 		scanf("%s", name);
 		printf("输入密码：");
-		scanf("%s", password);
+		do
+		{
+			password[i] = _getch();
+			if (password[i] == '\r')
+				break;
+			if (password[i] == '\b')
+			{
+				if (i == 0)
+				{
+					printf("\a");
+					continue;
+				}
+				i = i - 1;
+				printf("\b");
+			}
+			else
+			{
+				i = i + 1;
+				printf("*");
+			}
+		} while (password[i] != '\n' && i < 20);
+		password[i] = '\0';
+		printf("\n");
+		//scanf("%s", password);
 		if (master == NULL)
 		{
 			printf("err_malloc\n");
