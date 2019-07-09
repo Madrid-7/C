@@ -32,7 +32,7 @@ typedef struct studio               //影厅信息
 	struct studio* next;
 }studio;
 
-typedef struct movie
+typedef struct movie             //电影信息
 {
 	char name[100];
 	studio area;
