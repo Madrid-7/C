@@ -1,0 +1,7 @@
+﻿  fuction.c
+c1 : fatal error C1083: 无法打开源文件: “fuction.c”: No such file or directory
+  menu.c
+c1 : fatal error C1083: 无法打开源文件: “menu.c”: No such file or directory
+  test.c
+c1 : fatal error C1083: 无法打开源文件: “test.c”: No such file or directory
+  正在生成代码...

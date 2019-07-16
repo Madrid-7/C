@@ -1,13 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include"fxxk.h"
 
-void cls()
-{
-	system("pause");
-	system("cls");
-}
-
-
 void menu()
 {
 	printf("===============================================================================================================\n");
