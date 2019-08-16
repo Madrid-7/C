@@ -40,21 +40,32 @@
 //char str1[10];
 //str1 = "string";
 
+//int main()
+//{
+//	char q = 1;
+//	int w = 2;
+//	float e = 3;
+//	double r = 4;
+//	int a = 10;
+//	const char* p = "Hello!";
+//	printf("%c\n", *p);         //H
+//
+//	a += a *= a -= a / 3;
+//	printf("%d\n", a);         //98
+//
+//	a = q * w + r - e;
+//
+//	system("pause");
+//	return 0;
+//}
+
+char* str_set(char* str)
+{
+
+}
+
 int main()
 {
-	char q = 1;
-	int w = 2;
-	float e = 3;
-	double r = 4;
-	int a = 10;
-	const char* p = "Hello!";
-	printf("%c\n", *p);         //H
-
-	a += a *= a -= a / 3;
-	printf("%d\n", a);         //98
-
-	a = q * w + r - e;
-
-	system("pause");
 	return 0;
+	
 }
